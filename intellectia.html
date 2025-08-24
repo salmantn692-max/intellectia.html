@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTELLECTIA - Live Scoreboard</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #f5f5f7; color: #1d1d1f; margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; }
+        
+        /* --- HEADER STYLE WITH BACKGROUND IMAGE --- */
+        header {
+            position: relative; /* Needed for the overlay */
+            text-align: center;
+            padding: 80px 20px; /* Increased padding for a better look */
+            color: white;
+            background-image: url('YOUR_IMAGE_URL_HERE'); /* <-- PASTE YOUR IMAGE URL HERE */
+            background-size: cover;
+            background-position: center center;
+            z-index: 1;
+        }
+        /* This adds a dark overlay so the white text is easy to read */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Adjust 0.6 to make it darker or lighter */
+            z-index: -1;
+        }
+        header h1 { margin: 0; font-size: 3em; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        header p { margin: 5px 0 0; font-size: 1.4em; opacity: 0.9; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        
+        /* --- REST OF THE STYLES --- */
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border-bottom: 1px solid #e5e5e5; padding: 14px 18px; text-align: center; }
+        th { background-color: #f5f5f7; color: #1d1d1f; font-weight: 600; font-size: 1em; text-transform: uppercase; letter-spacing: 0.5px; }
+        td.program-name { text-align: left; font-weight: 500; color: #333; }
+        input.score-input { width: 60px; text-align: center; border: 1px solid #ccc; border-radius: 4px; padding: 5px; font-size: 1em; }
+        tr.category-header { background-color: #e9ecef; font-weight: bold; font-size: 1.1em; color: #000; }
+        tr.category-header td { padding-top: 16px; padding-bottom: 16px; }
+        tbody tr:hover { background-color: #f5f5f7; }
+        tfoot tr.total-row { font-weight: bold; font-size: 1.3em; background-color: #333; color: white; }
+        tfoot td { padding: 20px 18px; }
+        .update-button-container { text-align: center; padding: 20px; }
+        .update-button { background-color: #28a745; color: white; border: none; padding: 15px 30px; font-size: 1.2em; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .update-button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>INTELLECTIA ART FEST</h1>
+        <p>Live Scoreboard</p>
+    </header>
+    
+    <div class="update-button-container">
+        <button class="update-button" onclick="updateTotals()">Calculate & Update Totals</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Program Name</th>
+                <th>Category</th>
+                <th>Jaishe Fardan</th>
+                <th>Jaishe Subhan</th>
+                <th>Jaishe Rahman</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- SUPER SENIOR: STAGE -->
+            <tr class="category-header"><td colspan="5">Super Senior: Stage</td></tr>
+            <tr><td class="program-name">Qira'at</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Khuthuba</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Live translation</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Malayalam Speech</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">English Speech</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Arabic Speech</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Urdu Speech</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Odd info Spark</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Motivational Speech</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Announcement</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Poetry singing English</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Alfiya Contest</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            
+            <tr class="category-header"><td colspan="5">Super Senior: Non-Stage</td></tr>
+            <tr><td class="program-name">Thahleelul ibara</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Thadhrees</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Teaching</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Malayalam Essay</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">English Essay</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Arabic Essay</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Urdu Essay</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Translation Arabic to English</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Translation Urdu to malayalam</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Poetry Writting Malayalam</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Poetry Writing English</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Story writing English</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Story writing Arabic</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Word Fight English</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Word Fight Arabic</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Proof Reading English</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Revolutionary song writting</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Malayalam Typing</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">English Typing</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Arabic Typing</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">E-Poster Making</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Watercoloring</td><td>Super Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+
+            <tr class="category-header"><td colspan="5">Senior: Stage</td></tr>
+            <tr><td class="program-name">Qira'at</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Vank</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Malayalam Speech</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">English speech</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Arabic Speech</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Urdu Speech</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Spot Location</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">News Reading</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Poetry Singing Malayalam</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            
+            <tr class="category-header"><td colspan="5">Senior: Non-Stage</td></tr>
+            <tr><td class="program-name">Hifzul Adhkar</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Swarf Talent</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Footnote Malayalam</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Map Study</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Calligraphy Analysis</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Malayalam Typing</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">English Typing</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Arabic Typing</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Malayalam Essay</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">English Essay</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Translation English to Malayalam</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Translation Arabic to Malayalam</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Poetry Writing Malayalam</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Poetry Writing English</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Story Making Malayalam</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Story Making Urdu</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Word Fight English</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Word Fight Arabic</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Spelling Telling</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Rubik's Cube</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Sudoku</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Pencil Drawing</td><td>Senior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+
+            <tr class="category-header"><td colspan="5">Junior: Stage</td></tr>
+            <tr><td class="program-name">Hifz</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Vank</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Malayalam speech</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">English Speech</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Arabic speech</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Sweet Malayalam</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Tongue twist</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Conversation</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Arabic song</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Madh song</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Padapattu</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Malayalam group song</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Little Master</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Quiz</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+
+            <tr class="category-header"><td colspan="5">Junior: Non-Stage</td></tr>
+            <tr><td class="program-name">Hiflul Adhkar</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Footnote Malayalam</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Essay writing</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Translation English-Malayalam</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Poetry Writing Malayalam</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Poetry Writing English</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Storytelling Malayalam</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Storytelling English</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Vocabulary English</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Arabic vocabulary</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Spelling Telling</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Rubik's Cube</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Pencil drawing</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Memory test</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Handwritten Arabic</td><td>Junior</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+
+            <tr class="category-header"><td colspan="5">General: Stage</td></tr>
+            <tr><td class="program-name">Arabic song</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Madh song</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Devotional song</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Padapat</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Malapattu</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Mashup</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Burda</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Munalara</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Musha'ara</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Talent Hunt</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Quiz</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">GanaGadha</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Va'al</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Extempore</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Ideal speech</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Tafseer Talk</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Commentary English</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Commentary Arabic</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+
+            <tr class="category-header"><td colspan="5">General: Non-Stage</td></tr>
+            <tr><td class="program-name">Video Making</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Channel Discussion</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">E-Paper Making</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Calligraphy Design</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">First Aid</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Talashe Mas'ala</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Photography</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Cartoon</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Collage</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">A.I Graphy</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+            <tr><td class="program-name">Craft</td><td>General</td><td><input type="number" class="score-input fardan-score" value="0"></td><td><input type="number" class="score-input subhan-score" value="0"></td><td><input type="number" class="score-input rahman-score" value="0"></td></tr>
+        </tbody>
+        <tfoot>
+            <tr class="total-row">
+                <td colspan="2">GRAND TOTAL</td>
+                <td id="fardan-total">0</td>
+                <td id="subhan-total">0</td>
+                <td id="rahman-total">0</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script>
+    function updateTotals() {
+        let fardanTotal = 0;
+        document.querySelectorAll('.fardan-score').forEach(input => {
+            fardanTotal += Number(input.value) || 0;
+        });
+        document.getElementById('fardan-total').innerText = fardanTotal;
+
+        let subhanTotal = 0;
+        document.querySelectorAll('.subhan-score').forEach(input => {
+            subhanTotal += Number(input.value) || 0;
+        });
+        document.getElementById('subhan-total').innerText = subhanTotal;
+
+        let rahmanTotal = 0;
+        document.querySelectorAll('.rahman-score').forEach(input => {
+            rahmanTotal += Number(input.value) || 0;
+        });
+        document.getElementById('rahman-total').innerText = rahmanTotal;
+        
+        alert('Scores and totals have been updated!');
+    }
+
+    window.onload = function() {
+        let fardanTotal = 0;
+        document.querySelectorAll('.fardan-score').forEach(input => { fardanTotal += Number(input.value) || 0; });
+        document.getElementById('fardan-total').innerText = fardanTotal;
+
+        let subhanTotal = 0;
+        document.querySelectorAll('.subhan-score').forEach(input => { subhanTotal += Number(input.value) || 0; });
+        document.getElementById('subhan-total').innerText = subhanTotal;
+
+        let rahmanTotal = 0;
+        document.querySelectorAll('.rahman-score').forEach(input => { rahmanTotal += Number(input.value) || 0; });
+        document.getElementById('rahman-total').innerText = rahmanTotal;
+    };
+</script>
+
+</body>
+</html>
